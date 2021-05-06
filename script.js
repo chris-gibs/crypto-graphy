@@ -20,7 +20,11 @@ function grabData(data){
 function apiCall(){
   let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
   fetch(API)
+<<<<<<< HEAD
   .then(data => data.json())
+=======
+  .then(response => response.json())
+>>>>>>> api call is working
   .then(data => grabData(data))
   .then(data => updateGraph(data))
 }
@@ -72,4 +76,13 @@ let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 
 BTCLine.render()
 
+<<<<<<< HEAD
 setInterval(apiCall, 12000)
+=======
+setInterval(apiCall, 2000)
+
+const updateGraph = (dataObj) => {
+    console.log(dataObj)
+
+}
+>>>>>>> api call is working
