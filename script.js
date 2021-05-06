@@ -11,7 +11,7 @@ function updateAPICall(){
 function apiCall(){
   fetch(updateAPICall())
   .then(response => response.json())
-  .then(data => updateGraph(data))
+  .then(data => updateGraph(data["USD"]))
 }
 
 const BTCLineDiv = document.getElementById("btc-line")
