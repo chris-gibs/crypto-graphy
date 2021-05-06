@@ -13,18 +13,20 @@
 
 <label for="coins">Coin:</label>
 <select name="coins" id="coins">
-  <option value="BTC">BTC</option>
-  <option value="ETH">ETH</option>
-  <option value="DOGE">DOGE</option>
-  <option value="XRP">XRP</option>
+  <option class="coinOption" value="BTC">BTC</option>
+  <option class="coinOption" value="ETH">ETH</option>
+  <option class="coinOption" value="DOGE">DOGE</option>
+  <option class="coinOption" value="XRP">XRP</option>
 </select>
+
 <label for="currencies">Currency:</label>
 <select name="currencies" id="currencies">
-  <option value="USD">USD</option>
-  <option value="JPY">JPY</option>
-  <option value="EUR">EUR</option>
-  <option value="GBP">GBP</option>
+  <option class="currencyOption" value="USD">USD</option>
+  <option class="currencyOption" value="JPY">JPY</option>
+  <option class="currencyOption" value="EUR">EUR</option>
+  <option class="currencyOption" value="GBP">GBP</option>
 </select>
+<button type="button" onClick="updateAPICall()">Update</button>
 
  <div id="btc-container">
    <div id="btc-line"></div>

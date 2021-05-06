@@ -1,34 +1,16 @@
-function grabData(data){
-  let coinData = {
-    currencyName: data.RAW.BTC.USD.TOSYMBOL,
-    currencySymbol: data.DISPLAY.BTC.USD.TOSYMBOL,
-    coinName: data.RAW.BTC.USD.FROMSYMBOL,
-    coinSymbol: data.DISPLAY.BTC.USD.FROMSYMBOL,
-    price: data.RAW.BTC.USD.PRICE
-  }
-  return coinData
+function updateAPICall(){
+  let coinSelect = document.querySelector("#coins").selectedIndex
+  let coin = document.querySelectorAll(".coinOption")[coinSelect].value
+  let currencySelect = document.querySelector("#currencies").selectedIndex
+  let currency = document.querySelectorAll(".currencyOption")[currencySelect].value
+  //multifull and fsyms, BTC,ETH,DOGE,XRP,USD,JPY,EUR,GBP use for multiple stuff later
+  //clearGraph()
+  return `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=${currency}`
 }
 
 function apiCall(){
-  //let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
-  const coins = {
-    BTC: "BTC",
-    ETH: "ETH",
-    DOGE: "ETH",
-    XRP: "XRP"
-  }
-  const currencies = {
-    USD: "USD",
-    JPY: "JPY",
-    EUR: "EUR",
-    GBP: "GBP"
-  }
-  const api = ()=> {
-    return "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
-  }
-  fetch(api())
+  fetch(updateAPICall())
   .then(response => response.json())
-  .then(data => grabData(data))
   .then(data => updateGraph(data))
 }
 
