@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function grabData(data){
   let currencyName = data.RAW.BTC.USD.TOSYMBOL
   let currencySymbol = data.DISPLAY.BTC.USD.TOSYMBOL
@@ -13,3 +14,31 @@ function apiCall(){
   .then(data => grabData(data))
   .then(data => console.log(data))
 }
+=======
+const BTCLineDiv = document.getElementById("btc-line")
+
+const BTCLineOptions = {
+    series: [{
+        data: [{
+            x: 5,
+            y: 5
+        },{
+            x: 10,
+            y: 10
+        }]
+    }],
+    chart: {
+        id: 'btc-line',
+        group: 'btc',
+        type: 'line',
+    },
+    yaxis: {
+        labels: {
+            minWidth: 40
+        }
+  }
+}
+
+let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
+BTCLine.render()
+>>>>>>> added cdn to index.html and basic line graph to js
