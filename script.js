@@ -27,7 +27,7 @@ function apiCall(){
     return "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
   }
   fetch(api())
-  .then(data => data.json())
+  .then(response => response.json())
   .then(data => grabData(data))
   .then(data => updateGraph(data))
 }
@@ -80,3 +80,8 @@ let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 BTCLine.render()
 
 setInterval(apiCall, 2000)
+
+const updateGraph = (dataObj) => {
+    console.log(dataObj)
+
+}
