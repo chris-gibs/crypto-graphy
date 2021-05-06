@@ -82,15 +82,15 @@ BTCLine.render()
 
 setInterval(apiCall, 2000)
 
-const updateGraph = (dataObj) => {
+const updateGraph = (price) => {
     const time = new Date
     const timeString = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
     const graphData = {
         yValues: BTCLine.data.twoDSeries,
         xValues: BTCLine.data.twoDSeriesX
     }
-    updateLine(graphData, dataObj.price, timeString)
-    updatePercent(graphData, dataObj.price, timeString)
+    updateLine(graphData, price, timeString)
+    updatePercent(graphData, price, timeString)
 }
 
 const updatePercent = (graphData, newPrice, timeString) => {
@@ -141,4 +141,9 @@ const updateLine = (graphData, newPrice, timeString) => {
             data: objArray
         }])
     }
+}
+const clearGraph = () => {
+    BTCLine.updateSeries([{
+        data: []
+    }])
 }
