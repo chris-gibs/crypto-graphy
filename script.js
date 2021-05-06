@@ -1,5 +1,6 @@
 let selectedCoin = "BTC"
 let selectedCurrency = "USD"
+let alertValues = []
 
 const updateButton = document.querySelector("#updateButton")
 updateButton.addEventListener("click", updateUserSelect)
@@ -13,19 +14,33 @@ function updateUserSelect(){
 }
 
 function updateAPICall(){
-  
-  //multifull and fsyms, BTC,ETH,DOGE,XRP,USD,JPY,EUR,GBP use for multiple stuff later
-  // Consider building array with values from checkbox selection pushed in, then join(",") and feed into coin/currency in link and if more than one coin, insert  and fsyms else empty string and fsym
-  
-  let isMultiple = "?fsym"
-  //
-  return `https://min-api.cryptocompare.com/data/price${isMultiple}=${selectedCoin}&tsyms=${selectedCurrency}`
+  //multifull and fsyms required for multiple coins
+  return `https://min-api.cryptocompare.com/data/price?fsym=${selectedCoin}&tsyms=${selectedCurrency}`
+}
+
+function specialAlert(value){
+  console.log(value)
+  alertValues[alertValues.length] = value
+  if (alertValues.length == 3){
+    if (alertValues[0] < alertValues[1] && alertValues[1] < alertValues[2]){
+      alert("To The Moon!")
+    }
+    if (alertValues[0] > alertValues[1] && alertValues[1] > alertValues[2]){
+      alert("Buy The Dips!")
+    }
+  }
+  console.log(alertValues)
+  alertValues.shift()
 }
 
 function apiCall(){
   fetch(updateAPICall())
   .then(response => response.json())
-  .then(data => updateGraph(data[Object.keys(data)[0]]))
+  .then(data => {
+    updateGraph(data[Object.keys(data)[0]]),
+    specialAlert(data[Object.keys(data)[0]])
+  })
+  .catch(error => error.message)
 }
 
 const BTCLineDiv = document.getElementById("btc-line")
@@ -81,8 +96,6 @@ BTCPercent.render();
 let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 
 BTCLine.render()
-
-setInterval(apiCall, 2000)
 
 const updateGraph = (price) => {
     const time = new Date
@@ -152,3 +165,5 @@ const clearGraph = () => {
         data: []
     }])
 }
+
+setInterval(apiCall, 12000)
