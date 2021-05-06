@@ -4,14 +4,17 @@ function updateAPICall(){
   let currencySelect = document.querySelector("#currencies").selectedIndex
   let currency = document.querySelectorAll(".currencyOption")[currencySelect].value
   //multifull and fsyms, BTC,ETH,DOGE,XRP,USD,JPY,EUR,GBP use for multiple stuff later
+  // Consider building array with values from checkbox selection pushed in, then join(",") and feed into coin/currency in link and if more than one coin, insert  and fsyms else empty string and fsym
   //clearGraph()
+  let multi = "multifull"
+  let multiCoin = "fsyms"
   return `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=${currency}`
 }
 
 function apiCall(){
   fetch(updateAPICall())
   .then(response => response.json())
-  .then(data => updateGraph(data["USD"]))
+  .then(data => updateGraph(data[Object.keys(data)[0]]))
 }
 
 const BTCLineDiv = document.getElementById("btc-line")
