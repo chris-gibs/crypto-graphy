@@ -38,7 +38,10 @@ const BTCLineOptions = {
         id: 'btc-line',
         group: 'btc',
         type: 'line',
-        height: 300
+        height: 300,
+        animations: {
+            enabled: false
+        }
     },
     noData: {
         text: "loading..."
@@ -57,7 +60,10 @@ const BTCPercentOptions = {
         id: 'btc-percent',
         group: 'btc',
         type: 'line',
-        height: 300
+        height: 300,
+        animations: {
+            enabled: false
+        }
     },
     noData: {
         text: "loading..."
@@ -77,6 +83,62 @@ BTCLine.render()
 setInterval(apiCall, 2000)
 
 const updateGraph = (dataObj) => {
-    console.log(dataObj)
+    const time = new Date
+    const timeString = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
+    const graphData = {
+        yValues: BTCLine.data.twoDSeries,
+        xValues: BTCLine.data.twoDSeriesX
+    }
+    updateLine(graphData, dataObj.price, timeString)
+    updatePercent(graphData, dataObj.price, timeString)
+}
 
+const updatePercent = (graphData, newPrice, timeString) => {
+    // convert array of prices into array of percentages
+    graphData.yValues.push(newPrice)
+    graphData.xValues.push(timeString)
+    percentArray = graphData.yValues.map((value, index, array) => {
+        if (index == 0) return 0
+        return (array[index] - array[index-1]) / array[index-1] * 100
+        
+    })
+    const objArray = []
+    for(i=0;i<graphData.yValues.length; i++){
+        objArray.push({
+            x: graphData.xValues[i],
+            y: percentArray[i]
+        })
+    }
+    if(objArray.length > 10) objArray.shift()
+    BTCPercent.updateSeries([{
+        data: objArray
+    }])
+
+
+    
+}
+const updateLine = (graphData, newPrice, timeString) => {
+    if(graphData.yValues.length < 10){
+        BTCLine.appendData([{
+            data: [{
+                x: timeString,
+                y: newPrice
+                
+            }]
+        }])
+    } else{
+        const objArray = []
+        for(i = 1; i < graphData.yValues.length; i++)
+        objArray.push({
+            x: graphData.xValues[i],
+            y: graphData.yValues[i]
+        })
+        objArray.push({
+            x: timeString,
+            y: newPrice
+        })
+        BTCLine.updateSeries([{
+            data: objArray
+        }])
+    }
 }
