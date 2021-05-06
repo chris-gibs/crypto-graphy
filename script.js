@@ -1,11 +1,3 @@
-//let "BTC": BTC
-
-function changeAPICall(){
-  let coins = ["BTC", "ETH", "DOGE", "XRP"]
-  let currencies = [USD,JPY,EUR,GBP]
-  let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
-}
-
 function grabData(data){
   let coinData = {
     currencyName: data.RAW.BTC.USD.TOSYMBOL,
@@ -18,8 +10,23 @@ function grabData(data){
 }
 
 function apiCall(){
-  let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
-  fetch(API)
+  //let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
+  const coins = {
+    BTC: "BTC",
+    ETH: "ETH",
+    DOGE: "ETH",
+    XRP: "XRP"
+  }
+  const currencies = {
+    USD: "USD",
+    JPY: "JPY",
+    EUR: "EUR",
+    GBP: "GBP"
+  }
+  const api = ()=> {
+    return "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
+  }
+  fetch(api())
   .then(data => data.json())
   .then(data => grabData(data))
   .then(data => updateGraph(data))
@@ -72,4 +79,4 @@ let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 
 BTCLine.render()
 
-setInterval(apiCall, 12000)
+setInterval(apiCall, 2000)
