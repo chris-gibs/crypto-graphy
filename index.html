@@ -10,27 +10,73 @@
   
 </head>
 <body>
+<!-- graph stuff -->
+<div id="container1">
+  <!-- Selection 1 -->
+  <label for="coins">Coin:</label>
+  <select name="coins" class="coins">
+    <option value="BTC">BTC</option>
+    <option value="ETH">ETH</option>
+    <option value="DOGE">DOGE</option>
+    <option value="XRP">XRP</option>
+  </select>
 
-<label for="coins">Coin:</label>
-<select name="coins" id="coins">
-  <option class="coinOption" value="BTC">BTC</option>
-  <option class="coinOption" value="ETH">ETH</option>
-  <option class="coinOption" value="DOGE">DOGE</option>
-  <option class="coinOption" value="XRP">XRP</option>
-</select>
+  <label for="currencies">Currency:</label>
+  <select name="currencies" class="currencies">
+    <option class="currencyOption" value="USD">USD</option>
+    <option class="currencyOption" value="JPY">JPY</option>
+    <option class="currencyOption" value="EUR">EUR</option>
+    <option class="currencyOption" value="GBP">GBP</option>
+  </select>
+  <button type="button" class="updateButton" value="0">Update</button>
+  <div id="btc-line"></div>
+  <div id="btc-percent"></div>
+ </div>
 
-<label for="currencies">Currency:</label>
-<select name="currencies" id="currencies">
-  <option class="currencyOption" value="USD">USD</option>
-  <option class="currencyOption" value="JPY">JPY</option>
-  <option class="currencyOption" value="EUR">EUR</option>
-  <option class="currencyOption" value="GBP">GBP</option>
-</select>
-<button type="button" id="updateButton">Update</button>
+ <div id="container2">
 
- <div id="btc-container">
-   <div id="btc-line"></div>
-   <div id="btc-percent"></div>
+  <!-- Selection 2 -->
+  <label for="coins">Coin:</label>
+  <select name="coins" class="coins">
+    <option value="BTC">BTC</option>
+    <option value="ETH">ETH</option>
+    <option value="DOGE">DOGE</option>
+    <option value="XRP">XRP</option>
+  </select>
+
+  <label for="currencies">Currency:</label>
+  <select name="currencies" class="currencies">
+    <option class="currencyOption" value="USD">USD</option>
+    <option class="currencyOption" value="JPY">JPY</option>
+    <option class="currencyOption" value="EUR">EUR</option>
+    <option class="currencyOption" value="GBP">GBP</option>
+  </select>
+  <button type="button" class="updateButton" value="1">Update</button>
+  <div id="btc-line"></div>
+  <div id="btc-percent"></div>
+ </div>
+
+ <div id="container3">
+
+  <!-- Selection 3 -->
+  <label for="coins">Coin:</label>
+  <select name="coins" class="coins">
+    <option value="BTC">BTC</option>
+    <option value="ETH">ETH</option>
+    <option value="DOGE">DOGE</option>
+    <option value="XRP">XRP</option>
+  </select>
+
+  <label for="currencies">Currency:</label>
+  <select name="currencies" class="currencies">
+    <option class="currencyOption" value="USD">USD</option>
+    <option class="currencyOption" value="JPY">JPY</option>
+    <option class="currencyOption" value="EUR">EUR</option>
+    <option class="currencyOption" value="GBP">GBP</option>
+  </select>
+  <button type="button" class="updateButton" value="2">Update</button>
+  <div id="btc-line"></div>
+  <div id="btc-percent"></div>
  </div>
  <script src="script.js"></script>
 </body>

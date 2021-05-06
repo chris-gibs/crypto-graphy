@@ -1,15 +1,21 @@
-let selectedCoin = "BTC"
-let selectedCurrency = "USD"
+let graphSelection = [["BTC", "USD"]]
 
-const updateButton = document.querySelector("#updateButton")
-updateButton.addEventListener("click", updateUserSelect)
+const updateButtons = document.querySelectorAll(".updateButton")
+updateButtons.forEach(button => {
+  button.addEventListener("click", updateUserSelect)
+})
 
-function updateUserSelect(){
-  let coinSelect = document.querySelector("#coins").selectedIndex
-  selectedCoin = document.querySelectorAll(".coinOption")[coinSelect].value
-  let currencySelect = document.querySelector("#currencies").selectedIndex
-  selectedCurrency = document.querySelectorAll(".currencyOption")[currencySelect].value
-  clearGraph()
+function updateUserSelect(event){
+  const parent = event.target.parentNode
+  let coinSelect = parent.querySelector(".coins").selectedIndex
+  selectedCoin = parent.querySelectorAll(".coins > option")[coinSelect].value
+  let currencySelect = parent.querySelector(".currencies").selectedIndex
+  selectedCurrency = parent.querySelectorAll(".currencies > option")[currencySelect].value
+  console.log(parent)
+  console.log(coinSelect)
+  console.log(selectedCoin)
+  console.log(currencySelect)
+  console.log(selectedCurrency)
 }
 
 function updateAPICall(){
@@ -19,13 +25,20 @@ function updateAPICall(){
   
   let isMultiple = "?fsym"
   //
-  return `https://min-api.cryptocompare.com/data/price${isMultiple}=${selectedCoin}&tsyms=${selectedCurrency}`
+  return `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH&tsyms=USD,EUR`
+  //`https://min-api.cryptocompare.com/data/price${isMultiple}=${selectedCoin}&tsyms=${selectedCurrency}`
+}
+
+function handleData(data){
+  console.log(data)
+  console.log(Object.entries(data["RAW"]))
 }
 
 function apiCall(){
   fetch(updateAPICall())
   .then(response => response.json())
-  .then(data => updateGraph(data[Object.keys(data)[0]]))
+  .then(handleData)
+  .then(updateGraph)
 }
 
 const BTCLineDiv = document.getElementById("btc-line")
@@ -81,8 +94,6 @@ BTCPercent.render();
 let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 
 BTCLine.render()
-
-setInterval(apiCall, 2000)
 
 const updateGraph = (price) => {
     const time = new Date
@@ -152,3 +163,5 @@ const clearGraph = () => {
         data: []
     }])
 }
+
+setInterval(apiCall, 2000)
