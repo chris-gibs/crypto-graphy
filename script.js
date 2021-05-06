@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+//let "BTC": BTC
+
+>>>>>>> testing rebase
 function changeAPICall(){
   let coins = ["BTC", "ETH", "DOGE", "XRP"]
   let currencies = [USD,JPY,EUR,GBP]
@@ -20,6 +25,7 @@ function apiCall(){
   fetch(API)
   .then(data => JSON.parse(data))
   .then(data => grabData(data))
+<<<<<<< HEAD
     .then(data => updateGraph(data))
 }
 
@@ -72,3 +78,6 @@ BTCLine.render()
 
   setInterval(apiCall, 12000)
 
+=======
+}
+>>>>>>> testing rebase
