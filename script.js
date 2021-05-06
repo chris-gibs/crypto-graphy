@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-//let "BTC": BTC
-
 function changeAPICall(){
   let coins = ["BTC", "ETH", "DOGE", "XRP"]
   let currencies = [USD,JPY,EUR,GBP]
   let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
 }
 
->>>>>>> added object data in grabData and updated apiCall to send that object to updateGraph
 function grabData(data){
   let coinData = {
     currencyName: data.RAW.BTC.USD.TOSYMBOL,
@@ -26,26 +20,24 @@ function apiCall(){
   fetch(API)
   .then(data => JSON.parse(data))
   .then(data => grabData(data))
-<<<<<<< HEAD
-  .then(data => console.log(data))
+    .then(data => updateGraph(data))
 }
-=======
+
 const BTCLineDiv = document.getElementById("btc-line")
+const BTCPercentDiv = document.getElementById("btc-percent")
 
 const BTCLineOptions = {
     series: [{
-        data: [{
-            x: 5,
-            y: 5
-        },{
-            x: 10,
-            y: 10
-        }]
+        data: []
     }],
     chart: {
         id: 'btc-line',
         group: 'btc',
         type: 'line',
+        height: 300
+    },
+    noData: {
+        text: "loading..."
     },
     yaxis: {
         labels: {
@@ -53,13 +45,30 @@ const BTCLineOptions = {
         }
   }
 }
-
-let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
-BTCLine.render()
->>>>>>> added cdn to index.html and basic line graph to js
-=======
-  .then(data => updateGraph(data))
+const BTCPercentOptions = {
+    series: [{
+        data: []
+    }],
+    chart: {
+        id: 'btc-percent',
+        group: 'btc',
+        type: 'line',
+        height: 300
+    },
+    noData: {
+        text: "loading..."
+    },
+    yaxis: {
+        labels: {
+            minWidth: 40
+        }
+  }
 }
+let BTCPercent = new ApexCharts(BTCPercentDiv, BTCPercentOptions)
+BTCPercent.render();
+let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 
-setInterval(apiCall, 12000)
->>>>>>> added object data in grabData and updated apiCall to send that object to updateGraph
+BTCLine.render()
+
+  setInterval(apiCall, 12000)
+
