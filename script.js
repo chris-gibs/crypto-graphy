@@ -1,10 +1,24 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+//let "BTC": BTC
+
+function changeAPICall(){
+  let coins = ["BTC", "ETH", "DOGE", "XRP"]
+  let currencies = [USD,JPY,EUR,GBP]
+  let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
+}
+
+>>>>>>> added object data in grabData and updated apiCall to send that object to updateGraph
 function grabData(data){
-  let currencyName = data.RAW.BTC.USD.TOSYMBOL
-  let currencySymbol = data.DISPLAY.BTC.USD.TOSYMBOL
-  let coinName = data.RAW.BTC.USD.FROMSYMBOL
-  let coinSymbol = data.DISPLAY.BTC.USD.FROMSYMBOL
-  let price = data.RAW.BTC.USD.PRICE
+  let coinData = {
+    currencyName: data.RAW.BTC.USD.TOSYMBOL,
+    currencySymbol: data.DISPLAY.BTC.USD.TOSYMBOL,
+    coinName: data.RAW.BTC.USD.FROMSYMBOL,
+    coinSymbol: data.DISPLAY.BTC.USD.FROMSYMBOL,
+    price: data.RAW.BTC.USD.PRICE
+  }
+  return coinData
 }
 
 function apiCall(){
@@ -12,6 +26,7 @@ function apiCall(){
   fetch(API)
   .then(data => JSON.parse(data))
   .then(data => grabData(data))
+<<<<<<< HEAD
   .then(data => console.log(data))
 }
 =======
@@ -42,3 +57,9 @@ const BTCLineOptions = {
 let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 BTCLine.render()
 >>>>>>> added cdn to index.html and basic line graph to js
+=======
+  .then(data => updateGraph(data))
+}
+
+setInterval(apiCall, 12000)
+>>>>>>> added object data in grabData and updated apiCall to send that object to updateGraph
