@@ -20,7 +20,7 @@ function grabData(data){
 function apiCall(){
   let API = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,DOGE,XRP&tsyms=USD,JPY,EUR,GBP"
   fetch(API)
-  .then(data => JSON.parse(data))
+  .then(data => data.json())
   .then(data => grabData(data))
   .then(data => updateGraph(data))
 }
