@@ -1,14 +1,24 @@
-function updateAPICall(){
+let selectedCoin = "BTC"
+let selectedCurrency = "USD"
+
+const updateButton = document.querySelector("#updateButton")
+updateButton.addEventListener("click", updateUserSelect)
+
+function updateUserSelect(){
   let coinSelect = document.querySelector("#coins").selectedIndex
-  let coin = document.querySelectorAll(".coinOption")[coinSelect].value
+  selectedCoin = document.querySelectorAll(".coinOption")[coinSelect].value
   let currencySelect = document.querySelector("#currencies").selectedIndex
-  let currency = document.querySelectorAll(".currencyOption")[currencySelect].value
+  selectedCurrency = document.querySelectorAll(".currencyOption")[currencySelect].value
+}
+
+function updateAPICall(){
+  
   //multifull and fsyms, BTC,ETH,DOGE,XRP,USD,JPY,EUR,GBP use for multiple stuff later
   // Consider building array with values from checkbox selection pushed in, then join(",") and feed into coin/currency in link and if more than one coin, insert  and fsyms else empty string and fsym
   //clearGraph()
-  let multi = "multifull"
-  let multiCoin = "fsyms"
-  return `https://min-api.cryptocompare.com/data/price?fsym=${coin}&tsyms=${currency}`
+  let isMultiple = "?fsym"
+  //
+  return `https://min-api.cryptocompare.com/data/price${isMultiple}=${selectedCoin}&tsyms=${selectedCurrency}`
 }
 
 function apiCall(){
