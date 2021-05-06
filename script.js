@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 //let "BTC": BTC
 
->>>>>>> testing rebase
 function changeAPICall(){
   let coins = ["BTC", "ETH", "DOGE", "XRP"]
   let currencies = [USD,JPY,EUR,GBP]
@@ -25,8 +22,7 @@ function apiCall(){
   fetch(API)
   .then(data => JSON.parse(data))
   .then(data => grabData(data))
-<<<<<<< HEAD
-    .then(data => updateGraph(data))
+  .then(data => updateGraph(data))
 }
 
 const BTCLineDiv = document.getElementById("btc-line")
@@ -76,8 +72,4 @@ let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
 
 BTCLine.render()
 
-  setInterval(apiCall, 12000)
-
-=======
-}
->>>>>>> testing rebase
+setInterval(apiCall, 12000)
