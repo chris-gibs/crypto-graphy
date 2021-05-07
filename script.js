@@ -14,12 +14,80 @@ let status = document.querySelector("#status")
 let marketCap = document.querySelector("#market-cap")
 let high = document.querySelector("#high")
 let low = document.querySelector("#low")
-
+const BTCLineDiv = document.getElementById("btc-line")
+const BTCPercentDiv = document.getElementById("btc-percent")
 const updateButton = document.querySelector("#updateButton")
 updateButton.addEventListener("click", updateUserSelect)
 
+const BTCLineOptions = {
+  series: [{
+      name: "Current Price",
+      data: []
+  }],
+  chart: {
+      id: 'btc-line',
+      group: 'btc',
+      type: 'line',
+      height: 350,
+      width: 1000,
+      animations: {
+          enabled: false
+      }
+  },
+  markers: {
+      size: 5
+  },
+  theme: {
+      mode: 'dark'
+  },
+  noData: {
+      text: "loading..."
+  },
+  yaxis: {
+      labels: {
+          minWidth: 40
+      }
+}
+}
+
+const BTCPercentOptions = {
+  series: [{
+      name: "% change",
+      data: []
+  }],
+  chart: {
+      id: 'btc-percent',
+      group: 'btc',
+      type: 'line',
+      height: 350,
+      width: 1000,
+      animations: {
+          enabled: false
+      }
+  },
+  markers: {
+      size: 5
+  },
+  theme: {
+      mode: 'dark'
+  },
+  noData: {
+      text: "loading..."
+  },
+  yaxis: {
+      labels: {
+          minWidth: 40
+      }
+  }
+}
+let BTCPercent = new ApexCharts(BTCPercentDiv, BTCPercentOptions)
+BTCPercent.render();
+let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
+BTCLine.render()
+
+//Needs work
 function specialAlert(slicedArray){
-  console.log(slicedArray[0]["y"])
+  //console.log(slicedArray[0]["y"])
   if (slicedArray.length == 3){
     if (slicedArray[0]["y"] < slicedArray[1]["y"] && slicedArray[1]["y"] < slicedArray[2]["y"]){
       console.log("To The Moon!")
@@ -72,76 +140,6 @@ function apiCall(){
   })
   .catch(error => error.message)
 }
-
-const BTCLineDiv = document.getElementById("btc-line")
-const BTCPercentDiv = document.getElementById("btc-percent")
-
-const BTCLineOptions = {
-    series: [{
-        name: "Current Price",
-        data: []
-    }],
-    chart: {
-        id: 'btc-line',
-        group: 'btc',
-        type: 'line',
-        height: 350,
-        width: 1000,
-        animations: {
-            enabled: false
-        }
-    },
-    markers: {
-        size: 5
-    },
-    theme: {
-        mode: 'dark'
-    },
-    noData: {
-        text: "loading..."
-    },
-    yaxis: {
-        labels: {
-            minWidth: 40
-        }
-  }
-}
-
-const BTCPercentOptions = {
-    series: [{
-        name: "% change",
-        data: []
-    }],
-    chart: {
-        id: 'btc-percent',
-        group: 'btc',
-        type: 'line',
-        height: 350,
-        width: 1000,
-        animations: {
-            enabled: false
-        }
-    },
-    markers: {
-        size: 5
-    },
-    theme: {
-        mode: 'dark'
-    },
-    noData: {
-        text: "loading..."
-    },
-    yaxis: {
-        labels: {
-            minWidth: 40
-        }
-    }
-}
-let BTCPercent = new ApexCharts(BTCPercentDiv, BTCPercentOptions)
-BTCPercent.render();
-let BTCLine = new ApexCharts(BTCLineDiv, BTCLineOptions)
-
-BTCLine.render()
 
 const updateGraph = (price) => {
     const time = new Date
