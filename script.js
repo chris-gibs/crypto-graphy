@@ -16,11 +16,11 @@ function updateUserSelect(){
 
 function updateAPICall(){
   //multifull and fsyms required for multiple coins
-  return `https://min-api.cryptocompare.com/data/price?fsym=${selectedCoin}&tsyms=${selectedCurrency}`
+  return `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${selectedCoin}&tsyms=${selectedCurrency}`
 }
 
 function specialAlert(value){
-  console.log(value)
+  //console.log(value)
   alertValues[alertValues.length] = value
   if (alertValues.length == 3){
     if (alertValues[0] < alertValues[1] && alertValues[1] < alertValues[2]){
@@ -30,15 +30,29 @@ function specialAlert(value){
       alert("Buy The Dips!")
     }
   }
-  console.log(alertValues)
+  //console.log(alertValues)
   alertValues.shift()
+}
+
+function updateStats(data){
+  let marketCap = document.querySelector("#market-cap")
+  let high = document.querySelector("#market-cap")
+  let low = document.querySelector("#market-cap")
+
+  marketCap.innerText = `Market Cap: ${data["MKTCAP"]}`
+  high.innerText = `24-hour High: ${data["HIGHDAY"]}`
+  low.innerText = `24-hour low: ${data["LOWDAY"]}`
 }
 
 function apiCall(){
   fetch(updateAPICall())
   .then(response => response.json())
   .then(data => {
-    updateGraph(data[Object.keys(data)[0]]),
+    //console.log(data)
+    console.log(data["DISPLAY"][selectedCoin][selectedCurrency]["FROMSYMBOL"])
+
+    updateStats(data["DISPLAY"][selectedCoin][selectedCurrency])
+    updateGraph(data["RAW"][selectedCoin][selectedCurrency]["PRICE"]),
     specialAlert(data[Object.keys(data)[0]])
   })
   .catch(error => error.message)
@@ -168,4 +182,4 @@ const clearGraph = () => {
     }])
 }
 
-setInterval(apiCall, 12000)
+setInterval(apiCall, 2000)
