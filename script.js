@@ -75,6 +75,9 @@ const BTCLineOptions = {
             enabled: false
         }
     },
+    theme: {
+        mode: 'dark'
+    },
     noData: {
         text: "loading..."
     },
@@ -97,6 +100,9 @@ const BTCPercentOptions = {
         animations: {
             enabled: false
         }
+    },
+    theme: {
+        mode: 'dark'
     },
     noData: {
         text: "loading..."
