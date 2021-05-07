@@ -19,11 +19,12 @@ const updateButton = document.querySelector("#updateButton")
 updateButton.addEventListener("click", updateUserSelect)
 
 function specialAlert(slicedArray){
+  console.log(slicedArray[0]["y"])
   if (slicedArray.length == 3){
-    if (slicedArray[0] < slicedArray[1] && slicedArray[1] < slicedArray[2]){
+    if (slicedArray[0]["y"] < slicedArray[1]["y"] && slicedArray[1]["y"] < slicedArray[2]["y"]){
       console.log("To The Moon!")
       currentStatus = "To The Moon!"
-    } else if (slicedArray[0] > slicedArray[1] && slicedArray[1] > slicedArray[2]){
+    } else if (slicedArray[0]["y"] > slicedArray[1]["y"] && slicedArray[1]["y"] > slicedArray[2]["y"]){
       console.log("Buy The Dip!")
       currentStatus = "Buy The Dip!"
     } else {
@@ -199,7 +200,7 @@ const updateLine = (graphData, newPrice, timeString) => {
         BTCLine.updateSeries([{
             data: objArray
         }])
-        specialAlert(objArray.slice(-3))
+        //specialAlert(objArray.slice(-3))
     }
 }
 const clearGraph = () => {
