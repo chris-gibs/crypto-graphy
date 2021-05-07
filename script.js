@@ -11,6 +11,7 @@ function updateUserSelect(){
   let currencySelect = document.querySelector("#currencies").selectedIndex
   selectedCurrency = document.querySelectorAll(".currencyOption")[currencySelect].value
   clearGraph()
+  
 }
 
 function updateAPICall(){
@@ -55,6 +56,7 @@ const BTCLineOptions = {
         group: 'btc',
         type: 'line',
         height: 300,
+        width: 900,
         animations: {
             enabled: false
         }
@@ -77,7 +79,7 @@ const BTCPercentOptions = {
         group: 'btc',
         type: 'line',
         height: 300,
-        width: 700,
+        width: 900,
         animations: {
             enabled: false
         }
