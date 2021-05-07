@@ -1,6 +1,12 @@
 let selectedCoin = "BTC"
 let selectedCurrency = "USD"
 let alertValues = []
+const coinImage = {
+  "BTC": "./images/bitcoin-logo.svg",
+  "ETH": "./images/ethereum-logo.svg",
+  "DOGE": "./images/dogecoin-logo.svg",
+  "XRP": "./images/xrp-logo.svg"
+}
 
 const updateButton = document.querySelector("#updateButton")
 updateButton.addEventListener("click", updateUserSelect)
@@ -35,25 +41,28 @@ function specialAlert(value){
 }
 
 function updateStats(data){
+  let img = document.querySelector("img")
   let marketCap = document.querySelector("#market-cap")
-  let high = document.querySelector("#market-cap")
-  let low = document.querySelector("#market-cap")
+  let currentPrice = document.querySelector("#current-price")
+  let high = document.querySelector("#high")
+  let low = document.querySelector("#low")
 
+  //console.log(data["HIGH24HOUR"])
+
+  img.src = coinImage[selectedCoin]
   marketCap.innerText = `Market Cap: ${data["MKTCAP"]}`
-  high.innerText = `24-hour High: ${data["HIGHDAY"]}`
-  low.innerText = `24-hour low: ${data["LOWDAY"]}`
+  currentPrice.innerText = `Current Price: ${data["PRICE"]}`
+  high.innerText = `24-hour High: ${data["HIGH24HOUR"]}`
+  low.innerText = `24-hour Low: ${data["LOW24HOUR"]}`
 }
 
 function apiCall(){
   fetch(updateAPICall())
   .then(response => response.json())
   .then(data => {
-    //console.log(data)
-    console.log(data["DISPLAY"][selectedCoin][selectedCurrency]["FROMSYMBOL"])
-
     updateStats(data["DISPLAY"][selectedCoin][selectedCurrency])
     updateGraph(data["RAW"][selectedCoin][selectedCurrency]["PRICE"]),
-    specialAlert(data[Object.keys(data)[0]])
+    specialAlert(data["RAW"][selectedCoin][selectedCurrency]["PRICE"])
   })
   .catch(error => error.message)
 }
