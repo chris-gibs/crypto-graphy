@@ -1,6 +1,6 @@
 let selectedCoin = "BTC"
 let selectedCurrency = "USD"
-let alertValues = []
+let currentStatus = "Steady"
 const coinImage = {
   "BTC": "./images/bitcoin-logo.svg",
   "ETH": "./images/ethereum-logo.svg",
@@ -8,8 +8,46 @@ const coinImage = {
   "XRP": "./images/xrp-logo.svg"
 }
 
+let img = document.querySelector("img")
+let currentPrice = document.querySelector("#current-price")
+let status = document.querySelector("#status")
+let marketCap = document.querySelector("#market-cap")
+let high = document.querySelector("#high")
+let low = document.querySelector("#low")
+
 const updateButton = document.querySelector("#updateButton")
 updateButton.addEventListener("click", updateUserSelect)
+
+function specialAlert(slicedArray){
+  if (slicedArray.length == 3){
+    if (slicedArray[0] < slicedArray[1] && slicedArray[1] < slicedArray[2]){
+      console.log("To The Moon!")
+      currentStatus = "To The Moon!"
+    } else if (slicedArray[0] > slicedArray[1] && slicedArray[1] > slicedArray[2]){
+      console.log("Buy The Dip!")
+      currentStatus = "Buy The Dip!"
+    } else {
+      currentStatus = "Steady"
+    }
+  }
+}
+
+function priceColour(data){
+  if (data["PRICE"] > data["HIGH24HOUR"]){
+    currentPrice.style.color = "lightgreen"
+  } else if (data["PRICE"] < data["LOW24HOUR"]){
+    currentPrice.style.color = "red"
+  }
+}
+
+function updateStats(displayData){
+  img.src = coinImage[selectedCoin]
+  currentPrice.innerText = displayData["PRICE"]
+  status.innerText = currentStatus
+  marketCap.innerText = displayData["MKTCAP"]
+  high.innerText = displayData["HIGH24HOUR"]
+  low.innerText = displayData["LOW24HOUR"]
+}
 
 function updateUserSelect(){
   let coinSelect = document.querySelector("#coins").selectedIndex
@@ -17,43 +55,10 @@ function updateUserSelect(){
   let currencySelect = document.querySelector("#currencies").selectedIndex
   selectedCurrency = document.querySelectorAll(".currencyOption")[currencySelect].value
   clearGraph()
-  
 }
 
 function updateAPICall(){
-  //multifull and fsyms required for multiple coins
   return `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${selectedCoin}&tsyms=${selectedCurrency}`
-}
-
-function specialAlert(value){
-  //console.log(value)
-  alertValues[alertValues.length] = value
-  if (alertValues.length == 3){
-    if (alertValues[0] < alertValues[1] && alertValues[1] < alertValues[2]){
-      alert("To The Moon!")
-    }
-    if (alertValues[0] > alertValues[1] && alertValues[1] > alertValues[2]){
-      alert("Buy The Dips!")
-    }
-  }
-  //console.log(alertValues)
-  alertValues.shift()
-}
-
-function updateStats(data){
-  let img = document.querySelector("img")
-  let marketCap = document.querySelector("#market-cap")
-  let currentPrice = document.querySelector("#current-price")
-  let high = document.querySelector("#high")
-  let low = document.querySelector("#low")
-
-  //console.log(data["HIGH24HOUR"])
-
-  img.src = coinImage[selectedCoin]
-  marketCap.innerText = `Market Cap: ${data["MKTCAP"]}`
-  currentPrice.innerText = `Current Price: ${data["PRICE"]}`
-  high.innerText = `24-hour High: ${data["HIGH24HOUR"]}`
-  low.innerText = `24-hour Low: ${data["LOW24HOUR"]}`
 }
 
 function apiCall(){
@@ -61,8 +66,8 @@ function apiCall(){
   .then(response => response.json())
   .then(data => {
     updateStats(data["DISPLAY"][selectedCoin][selectedCurrency])
-    updateGraph(data["RAW"][selectedCoin][selectedCurrency]["PRICE"]),
-    specialAlert(data["RAW"][selectedCoin][selectedCurrency]["PRICE"])
+    updateGraph(data["RAW"][selectedCoin][selectedCurrency]["PRICE"])
+    priceColour(data["RAW"][selectedCoin][selectedCurrency])
   })
   .catch(error => error.message)
 }
@@ -96,6 +101,7 @@ const BTCLineOptions = {
         }
   }
 }
+
 const BTCPercentOptions = {
     series: [{
         data: []
@@ -155,12 +161,11 @@ const updatePercent = (graphData, newPrice, timeString) => {
             y: percentArray[i]
         })
     }
+
     if(objArray.length > 10) objArray.shift()
     BTCPercent.updateSeries([{
         data: objArray
     }])
-
-
     
 }
 const updateLine = (graphData, newPrice, timeString) => {
@@ -186,6 +191,7 @@ const updateLine = (graphData, newPrice, timeString) => {
         BTCLine.updateSeries([{
             data: objArray
         }])
+        specialAlert(objArray.slice(-3))
     }
 }
 const clearGraph = () => {
@@ -197,4 +203,4 @@ const clearGraph = () => {
     }])
 }
 
-setInterval(apiCall, 2000)
+setInterval(apiCall, 12000)
