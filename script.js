@@ -77,6 +77,7 @@ const BTCPercentDiv = document.getElementById("btc-percent")
 
 const BTCLineOptions = {
     series: [{
+        name: "Current Price",
         data: []
     }],
     chart: {
@@ -88,6 +89,9 @@ const BTCLineOptions = {
         animations: {
             enabled: false
         }
+    },
+    markers: {
+        size: 5
     },
     theme: {
         mode: 'dark'
@@ -104,6 +108,7 @@ const BTCLineOptions = {
 
 const BTCPercentOptions = {
     series: [{
+        name: "% change",
         data: []
     }],
     chart: {
@@ -115,6 +120,9 @@ const BTCPercentOptions = {
         animations: {
             enabled: false
         }
+    },
+    markers: {
+        size: 5
     },
     theme: {
         mode: 'dark'
