@@ -7,35 +7,44 @@
   <title>Crypto-Graphy</title>
   <link rel="stylesheet" href="stylesheet.css">
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
   
 </head>
 <body>
+  <h1 class="title">CRYPTO-GRAPHY</h1>
 <div id="main">
-  <h1>CRYPTO-GRAPHY</h1>
-  <label for="coins">Coin:</label>
-  <select name="coins" id="coins">
-    <option class="coinOption" value="BTC">BTC</option>
-    <option class="coinOption" value="ETH">ETH</option>
-    <option class="coinOption" value="DOGE">DOGE</option>
-    <option class="coinOption" value="XRP">XRP</option>
-  </select>
-
-  <label for="currencies">Currency:</label>
-  <select name="currencies" id="currencies">
-    <option class="currencyOption" value="USD">USD</option>
-    <option class="currencyOption" value="JPY">JPY</option>
-    <option class="currencyOption" value="EUR">EUR</option>
-    <option class="currencyOption" value="GBP">GBP</option>
-  </select>
-  <button type="button" id="updateButton">Update</button>
-
  <div id="btc-container">
    <div id="btc-line"></div>
    <div id="btc-percent"></div>
  </div>
- <div class="stats">
-  <img class="coin-image">
-  
+ <div class="options">
+  <div class="stats">
+    <img class="coin-image">
+    <ul class="stats-list">
+      <li id="market-cap">Market Cap:</li>
+      <li id="high">24-Hour high:</li>
+      <li id="low">24-Hour Low:</li>
+    </ul>
+  </div>
+  <div>
+    <label for="coins">Coin:</label>
+    <select name="coins" id="coins">
+      <option class="coinOption" value="BTC">BTC</option>
+      <option class="coinOption" value="ETH">ETH</option>
+      <option class="coinOption" value="DOGE">DOGE</option>
+      <option class="coinOption" value="XRP">XRP</option>
+    </select>
+
+    <label for="currencies">Currency:</label>
+    <select name="currencies" id="currencies">
+      <option class="currencyOption" value="USD">USD</option>
+      <option class="currencyOption" value="JPY">JPY</option>
+      <option class="currencyOption" value="EUR">EUR</option>
+      <option class="currencyOption" value="GBP">GBP</option>
+    </select>
+    <button type="button" id="updateButton">Update</button>
+  </div>
  </div>
 </div>
 

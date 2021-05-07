@@ -55,8 +55,8 @@ const BTCLineOptions = {
         id: 'btc-line',
         group: 'btc',
         type: 'line',
-        height: 300,
-        width: 900,
+        height: 350,
+        width: 1000,
         animations: {
             enabled: false
         }
@@ -78,8 +78,8 @@ const BTCPercentOptions = {
         id: 'btc-percent',
         group: 'btc',
         type: 'line',
-        height: 300,
-        width: 900,
+        height: 350,
+        width: 1000,
         animations: {
             enabled: false
         }
